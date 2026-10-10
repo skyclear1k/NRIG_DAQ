@@ -1,0 +1,48 @@
+MAQ20-COM2     
+Registration Number: 0
+Serial Number -----: S0175606-01
+Date Code ---------: D0625
+Firmware Revision -: F1.82
+Input  Channels ---: -1
+Output Channels ---: -1
+
+MAQ20-DIOL     
+Registration Number: 1
+Serial Number -----: S0153366-08
+Date Code ---------: D1121
+Firmware Revision -: F1.12
+Input  Channels ---: 5
+Output Channels ---: 5
+
+MAQ20-ISN      
+Registration Number: 2
+Serial Number -----: S0162560-02
+Date Code ---------: D0323
+Firmware Revision -: F2.71
+Input  Channels ---: 16
+Output Channels ---: 0
+
+MAQ20-TTC      
+Registration Number: 3
+Serial Number -----: S0180159-05
+Date Code ---------: D0626
+Firmware Revision -: F2.71
+Input  Channels ---: 8
+Output Channels ---: 0
+
+MAQ20-TTC      
+Registration Number: 4
+Serial Number -----: S0175483-02
+Date Code ---------: D0625
+Firmware Revision -: F2.71
+Input  Channels ---: 8
+Output Channels ---: 0
+
+MAQ20-VSN      
+Registration Number: 5
+Serial Number -----: S0170106-04
+Date Code ---------: D0524
+Firmware Revision -: F2.71
+Input  Channels ---: 16
+Output Channels ---: 0
+

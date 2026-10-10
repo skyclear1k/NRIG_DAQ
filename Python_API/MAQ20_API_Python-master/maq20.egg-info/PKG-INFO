@@ -1,0 +1,9 @@
+Metadata-Version: 2.1
+Name: maq20
+Version: 0.9.0
+Summary: Python modules for Dataforth MAQ20 Data Acquisition System
+Home-page: https://github.com/DataforthCorporation/MAQ20_API_Python
+Author: Dataforth Corporation
+Author-email: techinfo@dataforth.com
+License: LICENSE.txt
+License-File: LICENSE.txt

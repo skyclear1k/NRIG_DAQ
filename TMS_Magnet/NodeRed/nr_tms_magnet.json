@@ -1,0 +1,1770 @@
+[
+    {
+        "id": "4b57f88b50cd3717",
+        "type": "tab",
+        "label": "TMS Magnet",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e6d859787bd7d63e",
+        "type": "group",
+        "z": "4b57f88b50cd3717",
+        "name": "MAQ20 192.168.1.60",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "de86ffd1fdb53941",
+            "41a3dd0273b28b99",
+            "66bc1cfd3b49f065",
+            "afe044dc164a5e08",
+            "4117cfacf8f68e97",
+            "0f9e666c3ba52a40",
+            "21f083322d584404",
+            "c3b0390a4efd5b99"
+        ],
+        "x": 454,
+        "y": 159,
+        "w": 432,
+        "h": 342
+    },
+    {
+        "id": "6555b21104671dec",
+        "type": "group",
+        "z": "4b57f88b50cd3717",
+        "name": "Magna_Power Read - 192.168.1.70",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "12642fd2947ed067",
+            "a0769bd8bf24b1a1",
+            "4092ecde75835971",
+            "f2940d49427d35f8",
+            "a3a655550d0d1c1c",
+            "4feabb73d3a59aaf",
+            "b5981b3737921eb0",
+            "5039bab35227616e",
+            "a8d532dea33eaf4f"
+        ],
+        "x": 414,
+        "y": 639,
+        "w": 632,
+        "h": 202
+    },
+    {
+        "id": "dfef294d6e498539",
+        "type": "group",
+        "z": "4b57f88b50cd3717",
+        "name": "Magna_Power Write - 192.168.1.70",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "566aca636272b5b4",
+            "c243e9e380d8fe73",
+            "931da826b2ae7227",
+            "b8e27ebb4d7013bb",
+            "9161f044ddbf2622",
+            "06d65b424ab11cba",
+            "e29294ef660cc83a",
+            "1374132dfb67e13d",
+            "d71dbfe57c091c1e",
+            "959420d012b29497",
+            "0f4f39b5003dd6dc",
+            "d6614acd33b48be8",
+            "2913262615d794ef",
+            "4243964f7b06d18a",
+            "b0dc7d6b0e6f2e46",
+            "aef4880ff9083a55",
+            "d23dc8920d9bf598",
+            "6368bae7639d1b56",
+            "8c6363c79b99803a",
+            "50d4e999f94be521"
+        ],
+        "x": 214,
+        "y": 1519,
+        "w": 1052,
+        "h": 442
+    },
+    {
+        "id": "26ce716d8bfa0738",
+        "type": "group",
+        "z": "4b57f88b50cd3717",
+        "name": "Agilent 34980A Read - 192.168.1.75",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "55de9b59586e158c",
+            "47f3eed5eb04cf9a",
+            "117f0df88a42de70",
+            "a1449abb49b8ee93",
+            "6ee6af3eb0383d60",
+            "44aecc99c09e8c7d",
+            "fcbed4418a168a58",
+            "c7ba2056bbd24310",
+            "e7ceab44764d3ea1",
+            "23abac7f7c1b81a6",
+            "be9e1e0b09762b83",
+            "a3f1f0dc60f0c3ec"
+        ],
+        "x": 414,
+        "y": 899,
+        "w": 652,
+        "h": 262
+    },
+    {
+        "id": "0b6691d0dc493b99",
+        "type": "group",
+        "z": "4b57f88b50cd3717",
+        "name": "Agilent 34980A Write - 192.168.1.75",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "571d04fe1eb3e4e8",
+            "22981129df66661c",
+            "f1246b9fda14b9bb",
+            "062b08b90a3aec04",
+            "a6bd96e035449db9",
+            "ce0da1482f8f1b65",
+            "651bfb216e500c59",
+            "733959c2a25ceae8",
+            "be535b76ca1e8c94",
+            "baab863df8436622",
+            "b8f1c15f4faa84a9",
+            "baf12316539a49d1",
+            "956ef71478f511db",
+            "58d06c71d168d4fc",
+            "6ea7639b34f52e68",
+            "d8e1777bc2105119",
+            "0155e57dcfcd5908",
+            "e25085d6ace68938",
+            "a5b78e63bb64a9fc",
+            "771409d8f769e656"
+        ],
+        "x": 1294,
+        "y": 1519,
+        "w": 1052,
+        "h": 442
+    },
+    {
+        "id": "463dc932b56deed0",
+        "type": "inject",
+        "z": "4b57f88b50cd3717",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 580,
+        "wires": [
+            [
+                "de86ffd1fdb53941",
+                "41a3dd0273b28b99",
+                "afe044dc164a5e08",
+                "12642fd2947ed067",
+                "f2940d49427d35f8",
+                "4feabb73d3a59aaf",
+                "117f0df88a42de70"
+            ]
+        ]
+    },
+    {
+        "id": "9f56c3334155b006",
+        "type": "influxdb batch",
+        "z": "4b57f88b50cd3717",
+        "influxdb": "influx_config",
+        "precision": "",
+        "retentionPolicy": "",
+        "name": "InfluxDB Batch",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "B403Lab",
+        "bucket": "TMS_Magnet_Proto_20260828",
+        "x": 1400,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "de86ffd1fdb53941",
+        "type": "modbus-getter",
+        "z": "4b57f88b50cd3717",
+        "g": "e6d859787bd7d63e",
+        "name": "TTC - id#1",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "3000",
+        "quantity": "8",
+        "server": "e8ca041a99b3c6c1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 550,
+        "y": 380,
+        "wires": [
+            [
+                "0f9e666c3ba52a40"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "41a3dd0273b28b99",
+        "type": "modbus-getter",
+        "z": "4b57f88b50cd3717",
+        "g": "e6d859787bd7d63e",
+        "name": "TTC - id#3",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "7000",
+        "quantity": "8",
+        "server": "e8ca041a99b3c6c1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 570,
+        "y": 460,
+        "wires": [
+            [
+                "66bc1cfd3b49f065"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "66bc1cfd3b49f065",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "e6d859787bd7d63e",
+        "name": "TT group 2",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"MAQ20\"\nconst tag2Name = \"Temperature\"\n\nconst fieldNames = [\n    \"T9\", \"T10\", \"T11\", \"T12\",\n    \"T13\", \"T14\", \"T15\", \"T16\"\n];\n\n// Optional scaling (example)\nconst scale = new Array(8).fill(0.0977);\n\n// ---- Get Modbus Data ----\nlet data = msg.payload.data || msg.payload;\n\n// ---- Build fields object ----\nlet fields = {};\n\nfor (let i = 0; i < Math.min(data.length, fieldNames.length); i++) {\n\n    let raw = Number(data[i]);\n    if (!Number.isFinite(raw)) continue;\n\n    // Convert unsigned 16-bit → signed 16-bit\n    if (raw > 32767) {\n        raw = raw - 65536;\n    }\n\n    fields[fieldNames[i]] = raw * scale[i];\n}\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 460,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "afe044dc164a5e08",
+        "type": "modbus-getter",
+        "z": "4b57f88b50cd3717",
+        "g": "e6d859787bd7d63e",
+        "name": "ISN - id#2",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "5000",
+        "quantity": "8",
+        "server": "e8ca041a99b3c6c1",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 540,
+        "y": 220,
+        "wires": [
+            [
+                "4117cfacf8f68e97",
+                "21f083322d584404",
+                "c3b0390a4efd5b99"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4117cfacf8f68e97",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "e6d859787bd7d63e",
+        "name": "Pressures",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"MAQ20\";\nconst tag2Name = \"Pressure\";\n\nconst fieldNames = [\n    \"P1\", \"P2\", \"P3\", \"P4\", \"P5\", \"P6\",\n];\n\n\nlet modbusData = msg.payload;\n\nlet multiplier = 5.25 * 10 ** -6; // Apply the multiplier\nmodbusData = modbusData.map(value => value * multiplier);\n\n// Step 2: Extract specific values and calculate psi0 and psi1\nlet Pmax = 300 // psi\nlet Pmin = 0 //psi\n\nlet mA = modbusData // Assuming modbusData is now the modified array\n// Convert mA → psi (array)\nlet Amin = 0.004\nlet Amax = 0.020;\nlet psi = mA.map(i => (i - Amin) * ((Pmax - Pmin) / (Amax-Amin)) + Pmin);\n// Convert psi → bar (array)\nlet bar = psi.map(p => 0.06894574 * p);\n\n\n// Optional scaling (example)\nconst scale = new Array(6).fill(1);\n\n// ---- Get Modbus Data ----\n// let data = msg.payload.data || msg.payload;\n// let data = psi.data || psi;\nlet data = bar.data || bar;\n\n// ---- Build fields object ----\nlet fields = {};\n\nfor (let i = 0; i < Math.min(bar.length, fieldNames.length); i++) {\n\n    let raw = Number(data[i]);\n    if (!Number.isFinite(raw)) continue;\n\n    fields[fieldNames[i]] = raw * scale[i];\n}\n\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n        },\n    fields: fields\n    // fields: mA\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 200,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "0f9e666c3ba52a40",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "e6d859787bd7d63e",
+        "name": "TT group 1",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"MAQ20\"\nconst tag2Name = \"Temperature\"\n\nconst fieldNames = [\n    \"T1\", \"T2\", \"T3\", \"T4\",\n    \"T5\", \"T6\", \"T7\", \"T8\"\n];\n\n// Optional scaling (example)\nconst scale = new Array(8).fill(0.0977);\n\n// ---- Get Modbus Data ----\nlet data = msg.payload.data || msg.payload;\n\n// ---- Build fields object ----\nlet fields = {};\n\nfor (let i = 0; i < Math.min(data.length, fieldNames.length); i++) {\n\n    let raw = Number(data[i]);\n    if (!Number.isFinite(raw)) continue;\n\n    // Convert unsigned 16-bit → signed 16-bit\n    if (raw > 32767) {\n        raw = raw - 65536;\n    }\n\n    fields[fieldNames[i]] = raw * scale[i];\n}\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 380,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "21f083322d584404",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "e6d859787bd7d63e",
+        "name": "Water Flow Rate",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"MAQ20\";\nconst tag2Name = \"flowrate\";\n\nconst fieldNames = [\n    \"Water_flow\"\n];\n\n// Channels to include (Modbus index positions)\nconst enabledChannels = [6];   // example\n\n\n// ---- Get Modbus Data ----\nlet modbusData = msg.payload;\n\n// Apply multiplier\nconst multiplier = 5.25e-6;\nmodbusData = modbusData.map(v => v * multiplier);\n\n\n// ---- Convert mA → psi ----\n// flowmeter P/N: ifm SM6604\n// const gpm_max = 6.6; // gpm\n// const gpm_min = 0.03; // gpm\n\n// flowmeter P/N: ifm SM8604\nconst gpm_max = 26.4; // gpm\nconst gpm_min = 0.01; // gpm\n\nlet mA = modbusData;\n\nlet gpm = mA.map(i =>\n    (i - 0.004) * ((gpm_max - gpm_min) / 0.016) + gpm_min\n);\n\n\n\n// ---- Build fields object ----\nlet fields = {};\n\nenabledChannels.forEach((ch, index) => {\n\n    if (ch >= gpm.length) return;\n\n    let raw = Number(gpm[ch]);\n    if (!Number.isFinite(raw)) return;\n\n    let fieldName = fieldNames[index] || (\"ch_\" + index);\n    fields[fieldName] = raw;\n\n});\n\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 260,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "c3b0390a4efd5b99",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "e6d859787bd7d63e",
+        "name": "Water Temperature",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"MAQ20\";\nconst tag2Name = \"Temperature\";\n\nconst fieldNames = [\n    \"T_Water\"\n];\n\n// Channels to include (Modbus index positions)\nconst enabledChannels = [7];   // example\n\n\n// ---- Get Modbus Data ----\nlet modbusData = msg.payload;\n\n// Apply multiplier\nconst multiplier = 5.25e-6;\nmodbusData = modbusData.map(v => v * multiplier);\n\n\n// ---- Convert mA → psi ----\nconst Tw_max = 80; // Celsius\nconst Tw_min = -20; // Celsius\n\nlet mA = modbusData;\n\nlet Tw = mA.map(i =>\n    (i - 0.004) * ((Tw_max - Tw_min) / 0.016) + Tw_min\n);\n\n// Optional conversion\nlet bar = Tw.map(p => 0.06894574 * p);\n\n\n// ---- Build fields object ----\nlet fields = {};\n\nenabledChannels.forEach((ch, index) => {\n\n    if (ch >= Tw.length) return;\n\n    let raw = Number(Tw[ch]);\n    if (!Number.isFinite(raw)) return;\n\n    // Convert unsigned 16-bit → signed 16-bit\n    if (raw > 32767) {\n        raw = raw - 65536;\n    }\n\n    let fieldName = fieldNames[index] || (\"ch_\" + index);\n\n    fields[fieldName] = raw;\n\n});\n\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 320,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "337882faea0dc53a",
+        "type": "mqtt in",
+        "z": "4b57f88b50cd3717",
+        "name": "",
+        "topic": "lab/sensors/dht22",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dd94f4359bc3bd96",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 570,
+        "y": 560,
+        "wires": [
+            [
+                "12f47b860397e725"
+            ]
+        ]
+    },
+    {
+        "id": "12f47b860397e725",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "name": "Arduino ESP8266",
+        "func": "let data = msg.payload;\n\nlet point = {\n    measurement: \"lab_environment\",\n\n    tags: {\n        device: \"esp8266\",\n        location: \"lab\",\n        sensor: \"dht22\"\n    },\n\n    fields: {\n        temperature: Number(data.temperature),\n        humidity: Number(data.humidity)\n    },\n\n    timestamp: new Date()\n};\n\nmsg.payload = [point];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 560,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "12642fd2947ed067",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "Build *IDN? query",
+        "func": "msg.payload = \"*IDN?\\n\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 680,
+        "wires": [
+            [
+                "5039bab35227616e"
+            ]
+        ]
+    },
+    {
+        "id": "a0769bd8bf24b1a1",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "PSU",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 730,
+        "y": 740,
+        "wires": [
+            [
+                "a3a655550d0d1c1c"
+            ]
+        ]
+    },
+    {
+        "id": "4092ecde75835971",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "Parse IDN",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"Magna_Power\";\nconst tag2Name = \"String\";\n\nconst fieldNames = [\"ID_name\"];\n\n// ---- Get payload as trimmed string ----\nlet value = msg.payload.toString().trim();\n\n// ---- Build fields object ----\nlet fields = {};\n\nfields[fieldNames[0]] = value;\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 680,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "f2940d49427d35f8",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "Build voltage query",
+        "func": "msg.payload = \"MEAS:VOLT:DC?\\n\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 740,
+        "wires": [
+            [
+                "a0769bd8bf24b1a1"
+            ]
+        ]
+    },
+    {
+        "id": "a3a655550d0d1c1c",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "Parse voltage",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"Magna_Power\";\nconst tag2Name = \"Voltage\";\n\nconst fieldNames = [\"PS_Voltage\"];\n\n// ---- Get payload as trimmed string ----\nlet value = parseFloat(msg.payload.toString().trim());\n\n// ---- Build fields object ----\nlet fields = {};\n\nfields[fieldNames[0]] = value;\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 740,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "4feabb73d3a59aaf",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "Build current query",
+        "func": "msg.payload = \"MEAS:CURR:DC?\\n\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 800,
+        "wires": [
+            [
+                "a8d532dea33eaf4f"
+            ]
+        ]
+    },
+    {
+        "id": "b5981b3737921eb0",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "Parse current",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"Magna_Power\";\nconst tag2Name = \"currente\";\n\nconst fieldNames = [\"PS_current\"];\n\n// ---- Get payload as trimmed string ----\nlet value = parseFloat(msg.payload.toString().trim());\n\n// ---- Build fields object ----\nlet fields = {};\n\nfields[fieldNames[0]] = value;\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 800,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "5039bab35227616e",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "PSU",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 730,
+        "y": 680,
+        "wires": [
+            [
+                "4092ecde75835971"
+            ]
+        ]
+    },
+    {
+        "id": "a8d532dea33eaf4f",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "6555b21104671dec",
+        "name": "PSU",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 730,
+        "y": 800,
+        "wires": [
+            [
+                "b5981b3737921eb0"
+            ]
+        ]
+    },
+    {
+        "id": "566aca636272b5b4",
+        "type": "http in",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "POST /psu/cmd",
+        "url": "/psu/cmd",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 320,
+        "y": 1560,
+        "wires": [
+            [
+                "c243e9e380d8fe73"
+            ]
+        ]
+    },
+    {
+        "id": "c243e9e380d8fe73",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Build raw command",
+        "func": "// Expects JSON body: { \"command\": \"SOUR:VOLT 5.0\" }\nlet cmd = msg.payload.command;\nif (!cmd) {\n    msg.res.status(400).send(\"Missing 'command' field\");\n    return null;\n}\nif (!cmd.endsWith(\"\\n\")) cmd += \"\\n\";\nmsg.payload = cmd;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1560,
+        "wires": [
+            [
+                "931da826b2ae7227"
+            ]
+        ]
+    },
+    {
+        "id": "931da826b2ae7227",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "PSU Send Cmd",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 750,
+        "y": 1560,
+        "wires": [
+            [
+                "b8e27ebb4d7013bb"
+            ]
+        ]
+    },
+    {
+        "id": "b8e27ebb4d7013bb",
+        "type": "http response",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 930,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "9161f044ddbf2622",
+        "type": "http in",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "POST /psu/voltage",
+        "url": "/psu/voltage",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 330,
+        "y": 1660,
+        "wires": [
+            [
+                "06d65b424ab11cba"
+            ]
+        ]
+    },
+    {
+        "id": "06d65b424ab11cba",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Build SOUR:VOLT",
+        "func": "// Expects JSON body: { \"value\": 5.0 }\nconst v = Number(msg.payload.value);\nif (Number.isNaN(v)) {\n    msg.res.status(400).send(\"Missing or invalid 'value' field\");\n    return null;\n}\nmsg.payload = \"SOUR:VOLT \" + v + \"\\n\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 1660,
+        "wires": [
+            [
+                "e29294ef660cc83a"
+            ]
+        ]
+    },
+    {
+        "id": "e29294ef660cc83a",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "PSU Set Voltage",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "immed",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 760,
+        "y": 1660,
+        "wires": [
+            [
+                "1374132dfb67e13d"
+            ]
+        ]
+    },
+    {
+        "id": "1374132dfb67e13d",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Format reply",
+        "func": "msg.payload = { ok: true, action: \"set_voltage\", psuReply: msg.payload || null };\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 1660,
+        "wires": [
+            [
+                "d71dbfe57c091c1e",
+                "50d4e999f94be521"
+            ]
+        ]
+    },
+    {
+        "id": "d71dbfe57c091c1e",
+        "type": "http response",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 1140,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "959420d012b29497",
+        "type": "http in",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "POST /psu/current",
+        "url": "/psu/current",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 330,
+        "y": 1740,
+        "wires": [
+            [
+                "0f4f39b5003dd6dc"
+            ]
+        ]
+    },
+    {
+        "id": "0f4f39b5003dd6dc",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Build SOUR:CURR",
+        "func": "// Expects JSON body: { \"value\": 1.0 }\nconst v = Number(msg.payload.value);\nif (Number.isNaN(v)) {\n    msg.res.status(400).send(\"Missing or invalid 'value' field\");\n    return null;\n}\nmsg.payload = \"SOUR:CURR \" + v + \"\\n\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 1740,
+        "wires": [
+            [
+                "d6614acd33b48be8"
+            ]
+        ]
+    },
+    {
+        "id": "d6614acd33b48be8",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "PSU Set Current",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "immed",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 760,
+        "y": 1740,
+        "wires": [
+            [
+                "2913262615d794ef"
+            ]
+        ]
+    },
+    {
+        "id": "2913262615d794ef",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Format reply",
+        "func": "msg.payload = { ok: true, action: \"set_current\", psuReply: msg.payload || null };\nreturn msg;",
+        "outputs": 1,
+        "x": 940,
+        "y": 1740,
+        "wires": [
+            [
+                "4243964f7b06d18a",
+                "50d4e999f94be521"
+            ]
+        ]
+    },
+    {
+        "id": "4243964f7b06d18a",
+        "type": "http response",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 1140,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "b0dc7d6b0e6f2e46",
+        "type": "http in",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "POST /psu/output",
+        "url": "/psu/output",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 330,
+        "y": 1840,
+        "wires": [
+            [
+                "aef4880ff9083a55"
+            ]
+        ]
+    },
+    {
+        "id": "aef4880ff9083a55",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Build OUTP",
+        "func": "// Expects JSON body: { \"state\": \"ON\" }  or  { \"state\": \"OFF\" }\nconst raw = (msg.payload.state || \"\").toString().trim().toUpperCase();\nif (raw !== \"ON\" && raw !== \"OFF\") {\n    msg.res.status(400).send(\"'state' must be 'ON' or 'OFF'\");\n    return null;\n}\nmsg.payload = \"OUTP \" + raw + \"\\n\";\nmsg.outputState = raw;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 1840,
+        "wires": [
+            [
+                "d23dc8920d9bf598"
+            ]
+        ]
+    },
+    {
+        "id": "d23dc8920d9bf598",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "PSU Output ON/OFF",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "immed",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 740,
+        "y": 1840,
+        "wires": [
+            [
+                "6368bae7639d1b56"
+            ]
+        ]
+    },
+    {
+        "id": "6368bae7639d1b56",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Format reply",
+        "func": "msg.payload = { ok: true, action: \"set_output\", state: msg.outputState, psuReply: msg.payload || null };\nreturn msg;",
+        "outputs": 1,
+        "x": 940,
+        "y": 1840,
+        "wires": [
+            [
+                "8c6363c79b99803a",
+                "50d4e999f94be521"
+            ]
+        ]
+    },
+    {
+        "id": "8c6363c79b99803a",
+        "type": "http response",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 1140,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "50d4e999f94be521",
+        "type": "debug",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "dfef294d6e498539",
+        "name": "Write result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "571d04fe1eb3e4e8",
+        "type": "http in",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "POST /psu/cmd",
+        "url": "/psu/cmd",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 1400,
+        "y": 1560,
+        "wires": [
+            [
+                "22981129df66661c"
+            ]
+        ]
+    },
+    {
+        "id": "22981129df66661c",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Build raw command",
+        "func": "// Expects JSON body: { \"command\": \"SOUR:VOLT 5.0\" }\nlet cmd = msg.payload.command;\nif (!cmd) {\n    msg.res.status(400).send(\"Missing 'command' field\");\n    return null;\n}\nif (!cmd.endsWith(\"\\n\")) cmd += \"\\n\";\nmsg.payload = cmd;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 1560,
+        "wires": [
+            [
+                "f1246b9fda14b9bb"
+            ]
+        ]
+    },
+    {
+        "id": "f1246b9fda14b9bb",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "PSU Send Cmd",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 1830,
+        "y": 1560,
+        "wires": [
+            [
+                "062b08b90a3aec04"
+            ]
+        ]
+    },
+    {
+        "id": "062b08b90a3aec04",
+        "type": "http response",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 2010,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "a6bd96e035449db9",
+        "type": "http in",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "POST /psu/voltage",
+        "url": "/psu/voltage",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 1410,
+        "y": 1660,
+        "wires": [
+            [
+                "ce0da1482f8f1b65"
+            ]
+        ]
+    },
+    {
+        "id": "ce0da1482f8f1b65",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Build SOUR:VOLT",
+        "func": "// Expects JSON body: { \"value\": 5.0 }\nconst v = Number(msg.payload.value);\nif (Number.isNaN(v)) {\n    msg.res.status(400).send(\"Missing or invalid 'value' field\");\n    return null;\n}\nmsg.payload = \"SOUR:VOLT \" + v + \"\\n\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1630,
+        "y": 1660,
+        "wires": [
+            [
+                "651bfb216e500c59"
+            ]
+        ]
+    },
+    {
+        "id": "651bfb216e500c59",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "PSU Set Voltage",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "immed",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 1840,
+        "y": 1660,
+        "wires": [
+            [
+                "733959c2a25ceae8"
+            ]
+        ]
+    },
+    {
+        "id": "733959c2a25ceae8",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Format reply",
+        "func": "msg.payload = { ok: true, action: \"set_voltage\", psuReply: msg.payload || null };\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2020,
+        "y": 1660,
+        "wires": [
+            [
+                "be535b76ca1e8c94",
+                "771409d8f769e656"
+            ]
+        ]
+    },
+    {
+        "id": "be535b76ca1e8c94",
+        "type": "http response",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 2220,
+        "y": 1640,
+        "wires": []
+    },
+    {
+        "id": "baab863df8436622",
+        "type": "http in",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "POST /psu/current",
+        "url": "/psu/current",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 1410,
+        "y": 1740,
+        "wires": [
+            [
+                "b8f1c15f4faa84a9"
+            ]
+        ]
+    },
+    {
+        "id": "b8f1c15f4faa84a9",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Build SOUR:CURR",
+        "func": "// Expects JSON body: { \"value\": 1.0 }\nconst v = Number(msg.payload.value);\nif (Number.isNaN(v)) {\n    msg.res.status(400).send(\"Missing or invalid 'value' field\");\n    return null;\n}\nmsg.payload = \"SOUR:CURR \" + v + \"\\n\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1630,
+        "y": 1740,
+        "wires": [
+            [
+                "baf12316539a49d1"
+            ]
+        ]
+    },
+    {
+        "id": "baf12316539a49d1",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "PSU Set Current",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "immed",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 1840,
+        "y": 1740,
+        "wires": [
+            [
+                "956ef71478f511db"
+            ]
+        ]
+    },
+    {
+        "id": "956ef71478f511db",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Format reply",
+        "func": "msg.payload = { ok: true, action: \"set_current\", psuReply: msg.payload || null };\nreturn msg;",
+        "outputs": 1,
+        "x": 2020,
+        "y": 1740,
+        "wires": [
+            [
+                "58d06c71d168d4fc",
+                "771409d8f769e656"
+            ]
+        ]
+    },
+    {
+        "id": "58d06c71d168d4fc",
+        "type": "http response",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 2220,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "6ea7639b34f52e68",
+        "type": "http in",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "POST /psu/output",
+        "url": "/psu/output",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 1410,
+        "y": 1840,
+        "wires": [
+            [
+                "d8e1777bc2105119"
+            ]
+        ]
+    },
+    {
+        "id": "d8e1777bc2105119",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Build OUTP",
+        "func": "// Expects JSON body: { \"state\": \"ON\" }  or  { \"state\": \"OFF\" }\nconst raw = (msg.payload.state || \"\").toString().trim().toUpperCase();\nif (raw !== \"ON\" && raw !== \"OFF\") {\n    msg.res.status(400).send(\"'state' must be 'ON' or 'OFF'\");\n    return null;\n}\nmsg.payload = \"OUTP \" + raw + \"\\n\";\nmsg.outputState = raw;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 1840,
+        "wires": [
+            [
+                "0155e57dcfcd5908"
+            ]
+        ]
+    },
+    {
+        "id": "0155e57dcfcd5908",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "PSU Output ON/OFF",
+        "server": "192.168.1.70",
+        "port": "50505",
+        "out": "immed",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 1820,
+        "y": 1840,
+        "wires": [
+            [
+                "e25085d6ace68938"
+            ]
+        ]
+    },
+    {
+        "id": "e25085d6ace68938",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Format reply",
+        "func": "msg.payload = { ok: true, action: \"set_output\", state: msg.outputState, psuReply: msg.payload || null };\nreturn msg;",
+        "outputs": 1,
+        "x": 2020,
+        "y": 1840,
+        "wires": [
+            [
+                "a5b78e63bb64a9fc",
+                "771409d8f769e656"
+            ]
+        ]
+    },
+    {
+        "id": "a5b78e63bb64a9fc",
+        "type": "http response",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Reply",
+        "statusCode": "",
+        "headers": {},
+        "x": 2220,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "771409d8f769e656",
+        "type": "debug",
+        "z": "4b57f88b50cd3717",
+        "d": true,
+        "g": "0b6691d0dc493b99",
+        "name": "Write result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2230,
+        "y": 1920,
+        "wires": []
+    },
+    {
+        "id": "55de9b59586e158c",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Agilent",
+        "server": "192.168.1.75",
+        "port": "5025",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 730,
+        "y": 940,
+        "wires": [
+            [
+                "47f3eed5eb04cf9a"
+            ]
+        ]
+    },
+    {
+        "id": "47f3eed5eb04cf9a",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Parse Brazed Joints",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"Agilent 34980A\";\nconst tag2Name = \"voltage\";\n\nconst channels = [\n    \"ch1006\", \"ch1008\", \"ch1011\", \"ch1013\",\n    \"ch1016\", \"ch1018\",\n];\n\n// ---- Get payload as trimmed string ----\nlet value = msg.payload.toString().trim();\n\n// ---- Split payload into values ----\nlet values = value.split(',');\n\n// ---- Build fields object ----\nlet fields = {};\n\nchannels.forEach((channel, index) => {\n    if (index < values.length) {\n        fields[channel] = Number(values[index]);\n    }\n});\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 940,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "117f0df88a42de70",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Brazed Joints",
+        "func": "// Generate SCPI command for Agilent 34980A\n\nlet channels = [\n    1006, 1008, 1011, 1013,\n    1016, 1018,\n];\n\nlet channelString = channels.join(\",\");\n\nmsg.payload =\n    `CONF:VOLT:DC (@${channelString})\\n` +\n    `INIT\\n` +\n    `FETC?\\n`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 940,
+        "wires": [
+            [
+                "55de9b59586e158c"
+            ]
+        ]
+    },
+    {
+        "id": "6ee6af3eb0383d60",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Corners",
+        "func": "// Generate SCPI command for Agilent 34980A\n\nlet channels = [\n    1004, 1009, 1014, 1019,\n];\n\nlet channelString = channels.join(\",\");\n\nmsg.payload =\n    `CONF:VOLT:DC (@${channelString})\\n` +\n    `INIT\\n` +\n    `FETC?\\n`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 1000,
+        "wires": [
+            [
+                "44aecc99c09e8c7d"
+            ]
+        ]
+    },
+    {
+        "id": "44aecc99c09e8c7d",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Agilent",
+        "server": "192.168.1.75",
+        "port": "5025",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 730,
+        "y": 1000,
+        "wires": [
+            [
+                "a1449abb49b8ee93"
+            ]
+        ]
+    },
+    {
+        "id": "a1449abb49b8ee93",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Parse Corners",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"Agilent 34980A\";\nconst tag2Name = \"voltage\";\n\nconst channels = [\n    \"ch1004\", \"ch1009\", \"ch1014\", \"ch1019\",\n];\n\n// ---- Get payload as trimmed string ----\nlet value = msg.payload.toString().trim();\n\n// ---- Split payload into values ----\nlet values = value.split(',');\n\n// ---- Build fields object ----\nlet fields = {};\n\nchannels.forEach((channel, index) => {\n    if (index < values.length) {\n        fields[channel] = Number(values[index]);\n    }\n});\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 1000,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "fcbed4418a168a58",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Parse Joints",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"Agilent 34980A\";\nconst tag2Name = \"voltage\";\n\nconst channels = [\n    \"ch1005\", \"ch1010\", \"ch1015\", \"ch1020\",\n];\n\n// ---- Get payload as trimmed string ----\nlet value = msg.payload.toString().trim();\n\n// ---- Split payload into values ----\nlet values = value.split(',');\n\n// ---- Build fields object ----\nlet fields = {};\n\nchannels.forEach((channel, index) => {\n    if (index < values.length) {\n        fields[channel] = Number(values[index]);\n    }\n});\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 1060,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "c7ba2056bbd24310",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Agilent",
+        "server": "192.168.1.75",
+        "port": "5025",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 730,
+        "y": 1060,
+        "wires": [
+            [
+                "fcbed4418a168a58"
+            ]
+        ]
+    },
+    {
+        "id": "e7ceab44764d3ea1",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Joints",
+        "func": "// Generate SCPI command for Agilent 34980A\n\nlet channels = [\n    1005, 1010, 1015, 1020,\n];\n\nlet channelString = channels.join(\",\");\n\nmsg.payload =\n    `CONF:VOLT:DC (@${channelString})\\n` +\n    `INIT\\n` +\n    `FETC?\\n`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1060,
+        "wires": [
+            [
+                "c7ba2056bbd24310"
+            ]
+        ]
+    },
+    {
+        "id": "23abac7f7c1b81a6",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Parse Planks",
+        "func": "// ---- Configuration ----\nconst measurementName = \"TMS_Mag\";\nconst tag1Name = \"Agilent 34980A\";\nconst tag2Name = \"voltage\";\n\nconst channels = [\n    \"ch1007\", \"ch1012\", \"ch1017\"\n];\n\n// ---- Get payload as trimmed string ----\nlet value = msg.payload.toString().trim();\n\n// ---- Split payload into values ----\nlet values = value.split(',');\n\n// ---- Build fields object ----\nlet fields = {};\n\nchannels.forEach((channel, index) => {\n    if (index < values.length) {\n        fields[channel] = Number(values[index]);\n    }\n});\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 1120,
+        "wires": [
+            [
+                "9f56c3334155b006"
+            ]
+        ]
+    },
+    {
+        "id": "be9e1e0b09762b83",
+        "type": "tcp request",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Agilent",
+        "server": "192.168.1.75",
+        "port": "5025",
+        "out": "time",
+        "ret": "string",
+        "splitc": "\\n",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 730,
+        "y": 1120,
+        "wires": [
+            [
+                "23abac7f7c1b81a6"
+            ]
+        ]
+    },
+    {
+        "id": "a3f1f0dc60f0c3ec",
+        "type": "function",
+        "z": "4b57f88b50cd3717",
+        "g": "26ce716d8bfa0738",
+        "name": "Planks",
+        "func": "// Generate SCPI command for Agilent 34980A\n\nlet channels = [\n    1007, 1012, 1017,\n];\n\nlet channelString = channels.join(\",\");\n\nmsg.payload =\n    `CONF:VOLT:DC (@${channelString})\\n` +\n    `INIT\\n` +\n    `FETC?\\n`;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 1120,
+        "wires": [
+            [
+                "be9e1e0b09762b83"
+            ]
+        ]
+    },
+    {
+        "id": "influx_config",
+        "type": "influxdb",
+        "hostname": "localhost",
+        "port": "8086",
+        "protocol": "http",
+        "database": "",
+        "name": "Influx out",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://localhost:8086",
+        "timeout": "",
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "e8ca041a99b3c6c1",
+        "type": "modbus-client",
+        "name": "TMS_Magnet",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.1.60",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "dd94f4359bc3bd96",
+        "type": "mqtt-broker",
+        "name": "Arduino",
+        "broker": "192.168.1.1",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f0c3add3e0d66bf3",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0",
+            "node-red-contrib-modbus": "5.45.2"
+        }
+    }
+]
