@@ -1,0 +1,180 @@
+[
+    {
+        "id": "da58ef89501cdc67",
+        "type": "tab",
+        "label": "DIOL Init",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "6f4579299ae4ce5e",
+        "type": "inject",
+        "z": "da58ef89501cdc67",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.01",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 220,
+        "wires": [
+            [
+                "bb232d9a399eecbb"
+            ]
+        ]
+    },
+    {
+        "id": "1a21bca65da89f75",
+        "type": "modbus-flex-write",
+        "z": "da58ef89501cdc67",
+        "name": "Write DIOL - #6",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "server": "d09db33beaadfdc2",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 720,
+        "y": 220,
+        "wires": [
+            [
+                "d98e35e12a1483da"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bb232d9a399eecbb",
+        "type": "function",
+        "z": "da58ef89501cdc67",
+        "name": "msg to DIOL",
+        "func": "let state = msg.state;\n\n// DIOL logic:\n// 0 = switch closed → current flows → valve OPEN\n// 1 = switch open   → no current    → valve CLOSED\n\nlet value = (state === \"CLOSE\") ? 0 : 1;\n\n// Apply same command to 5 DO channels\nmsg.payload = {\n    fc: 16,\n    unitid: 1,\n    address: 13000,\n    quantity: 5,\n    value: [value, value, value, value, value]\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 220,
+        "wires": [
+            [
+                "1a21bca65da89f75"
+            ]
+        ]
+    },
+    {
+        "id": "d98e35e12a1483da",
+        "type": "function",
+        "z": "da58ef89501cdc67",
+        "name": "Read DO0-DO2",
+        "func": "msg.payload = {\n    fc: 3,\n    unitid: 1,\n    address: 13000,\n    quantity: 3\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 360,
+        "wires": [
+            [
+                "7e0cd1e6893b66dd"
+            ]
+        ]
+    },
+    {
+        "id": "7e0cd1e6893b66dd",
+        "type": "modbus-getter",
+        "z": "da58ef89501cdc67",
+        "name": "Read DIOL",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "13000",
+        "quantity": "5",
+        "server": "d09db33beaadfdc2",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 710,
+        "y": 360,
+        "wires": [
+            [
+                "8cd6fca733cb7c2f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "8cd6fca733cb7c2f",
+        "type": "debug",
+        "z": "da58ef89501cdc67",
+        "name": "Read Result",
+        "active": true,
+        "complete": "payload",
+        "x": 890,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "d09db33beaadfdc2",
+        "type": "modbus-client",
+        "name": "Mistral",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.1.40",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "ba510f43a94f3a2d",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.45.2"
+        }
+    }
+]

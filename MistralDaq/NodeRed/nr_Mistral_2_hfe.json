@@ -1,0 +1,431 @@
+[
+    {
+        "id": "e5f698a49ea450d9",
+        "type": "tab",
+        "label": "MISTRAL 2 with HFE",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d66d41ba9f03dc59",
+        "type": "group",
+        "z": "e5f698a49ea450d9",
+        "name": "MAQ20 192.168.1.60",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "1db48ca39846a368",
+            "573d321b75411594",
+            "47263fcde3afa395",
+            "dbf7255251ae7e2f",
+            "a9dc16324bc189d6",
+            "bad0ccd7212cdbe9",
+            "b4c9113e655abd2d",
+            "542a7fd52d74c483",
+            "3c16b7665c175e4f"
+        ],
+        "x": 734,
+        "y": 119,
+        "w": 612,
+        "h": 422
+    },
+    {
+        "id": "7ae4196648775622",
+        "type": "inject",
+        "z": "e5f698a49ea450d9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 490,
+        "y": 280,
+        "wires": [
+            [
+                "1db48ca39846a368",
+                "573d321b75411594",
+                "dbf7255251ae7e2f"
+            ]
+        ]
+    },
+    {
+        "id": "39aecdb80ff3526a",
+        "type": "mqtt in",
+        "z": "e5f698a49ea450d9",
+        "name": "",
+        "topic": "lab/sensors/dht22",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "dd94f4359bc3bd96",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 850,
+        "y": 620,
+        "wires": [
+            [
+                "153cebeebeee94e1"
+            ]
+        ]
+    },
+    {
+        "id": "153cebeebeee94e1",
+        "type": "function",
+        "z": "e5f698a49ea450d9",
+        "name": "Arduino ESP8266",
+        "func": "let data = msg.payload;\n\nlet point = {\n    measurement: \"lab_environment\",\n\n    tags: {\n        device: \"esp8266\",\n        location: \"lab\",\n        sensor: \"dht22\"\n    },\n\n    fields: {\n        temperature: Number(data.temperature),\n        humidity: Number(data.humidity)\n    },\n\n    timestamp: new Date()\n};\n\nmsg.payload = [point];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1db48ca39846a368",
+        "type": "modbus-getter",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "TTC - id#4 S0175483-02",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "9000",
+        "quantity": "8",
+        "server": "c79be4beafecc06e",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 870,
+        "y": 500,
+        "wires": [
+            [
+                "bad0ccd7212cdbe9"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "573d321b75411594",
+        "type": "modbus-getter",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "TTC - id#3 S0180159-05",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "7000",
+        "quantity": "8",
+        "server": "c79be4beafecc06e",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "47263fcde3afa395",
+                "542a7fd52d74c483"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "47263fcde3afa395",
+        "type": "function",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "TT group HFE",
+        "func": "// ---- Configuration ----\nconst measurementName = \"HFE\";\nconst tag1Name = \"MAQ20\";\nconst tag2Name = \"Temperature\";\n\nconst fieldNames = [\n    \"T1\", \"T2\", \"T3\"\n];\n\n// Scaling factor for each field\nconst scale = new Array(fieldNames.length).fill(0.0977);\n\n// ---- Get Modbus Data ----\nconst data = msg.payload.data || msg.payload;\n\n// ---- Build fields object ----\nconst fields = {};\n\n// Use only the FIRST values in the incoming array\n// Number of values = number of fieldNames\nfor (let i = 0; i < fieldNames.length; i++) {\n\n    // Stop if the incoming array doesn't contain enough values\n    if (i >= data.length) {\n        break;\n    }\n\n    let raw = Number(data[i]);\n\n    if (!Number.isFinite(raw)) {\n        continue;\n    }\n\n    // Convert unsigned 16-bit → signed 16-bit\n    if (raw > 32767) {\n        raw -= 65536;\n    }\n\n    fields[fieldNames[i]] = raw * scale[i];\n}\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1200,
+        "y": 340,
+        "wires": [
+            [
+                "3783f7ee9d5d5409"
+            ]
+        ]
+    },
+    {
+        "id": "dbf7255251ae7e2f",
+        "type": "modbus-getter",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "ISN - id#2",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "5000",
+        "quantity": "16",
+        "server": "c79be4beafecc06e",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 820,
+        "y": 180,
+        "wires": [
+            [
+                "a9dc16324bc189d6",
+                "b4c9113e655abd2d",
+                "3c16b7665c175e4f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a9dc16324bc189d6",
+        "type": "function",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "Pressures",
+        "func": "// ---- Configuration ----\nconst measurementName = \"HFE\";\nconst tag1Name = \"MAQ20\";\nconst tag2Name = \"Pressure\";\n\nconst fieldNames = [\n    \"P1\",\n    \"P2\",\n    \"P3\"\n];\n\n// ---- Get Modbus Data ----\n// Use the incoming array directly\nconst modbusData = msg.payload;\n\n// ---- Convert raw value to current (A) ----\nconst multiplier = 5.25 * 10 ** -6;\n\nconst mA = modbusData.map(value => Number(value) * multiplier);\n\n// ---- Pressure configuration ----\nconst Pmax = 150;  // psi\nconst Pmin = 0;    // psi\n\nconst Amin = 0.004;  // 4 mA\nconst Amax = 0.020;  // 20 mA\n\n// ---- Convert current → psi ----\n// Only process the FIRST three channels\nconst psi = mA\n    .slice(0, fieldNames.length)\n    .map(i => (i - Amin) * ((Pmax - Pmin) / (Amax - Amin)) + Pmin);\n\n// ---- Convert psi → bar ----\nconst bar = psi.map(p => 0.06894574 * p);\n\n// ---- Build fields object ----\nconst fields = {};\n\nfor (let i = 0; i < fieldNames.length && i < bar.length; i++) {\n\n    const raw = Number(bar[i]);\n\n    if (!Number.isFinite(raw)) {\n        continue;\n    }\n\n    fields[fieldNames[i]] = raw;\n}\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 160,
+        "wires": [
+            [
+                "3783f7ee9d5d5409"
+            ]
+        ]
+    },
+    {
+        "id": "bad0ccd7212cdbe9",
+        "type": "function",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "TT group 2",
+        "func": "// ---- Configuration ----\nconst measurementName = \"empty\";\nconst tag1Name = \"MAQ20\"\nconst tag2Name = \"Temperature\"\n\nconst fieldNames = [\n\n];\n\n// Optional scaling (example)\nconst scale = new Array(8).fill(0.0977);\n\n// ---- Get Modbus Data ----\nlet data = msg.payload.data || msg.payload;\n\n// ---- Build fields object ----\nlet fields = {};\n\nfor (let i = 0; i < Math.min(data.length, fieldNames.length); i++) {\n\n    let raw = Number(data[i]);\n    if (!Number.isFinite(raw)) continue;\n\n    // Convert unsigned 16-bit → signed 16-bit\n    if (raw > 32767) {\n        raw = raw - 65536;\n    }\n\n    fields[fieldNames[i]] = raw * scale[i];\n}\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1170,
+        "y": 500,
+        "wires": [
+            [
+                "3783f7ee9d5d5409"
+            ]
+        ]
+    },
+    {
+        "id": "b4c9113e655abd2d",
+        "type": "function",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "HFE Flow Rate",
+        "func": "// ---- Configuration ----\nconst measurementName = \"HFE\";\nconst tag1Name = \"MAQ20\";\nconst tag2Name = \"flowrate\";\n\nconst fieldName = \"HFE_flowrate\";\n\n//---- Get Modbus Data ----\n// msg.payload contains 16 values\nconst modbusData = msg.payload;\n\n// ---- Select item 4 ----\nconst rawValue = Number(modbusData[4]);\n\n// ---- Convert raw value to current ----\nconst multiplier = 5.25 * 10 ** -6;\nconst mA = rawValue * multiplier;\n\n// ---- Current scaling configuration ----\nconst flow_max = 3.5;     // gpm\nconst flow_min = 0.35;      // gpm\n\nconst Amin = 0.004;  // 4 mA\nconst Amax = 0.020;  // 20 mA\n\n// ---- Convert 4–20 mA → 0–50 amps ----\nconst flowrate =\n    (mA - Amin) *\n    ((flow_max - flow_min) / (Amax - Amin)) +\n    flow_min;\n\n// ---- Build fields object ----\nconst fields = {};\n\nif (Number.isFinite(flowrate)) {\n    fields[fieldName] = flowrate;\n}\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 260,
+        "wires": [
+            [
+                "3783f7ee9d5d5409"
+            ]
+        ]
+    },
+    {
+        "id": "542a7fd52d74c483",
+        "type": "function",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "TT group MISTRAL 2",
+        "func": "// ---- Configuration ----\nconst measurementName = \"Mistral 2\";\nconst tag1Name = \"MAQ20\";\nconst tag2Name = \"Temperature\";\n\nconst fieldNames = [\n    \"T1\", \"T2\", \"T3\", \"T4\", \"T5\"\n];\n\n// Scaling factor for each field\nconst scale = new Array(fieldNames.length).fill(0.0977);\n\n// ---- Get Modbus Data ----\nconst data = msg.payload.data || msg.payload;\n\n// ---- Build fields object ----\nconst fields = {};\n\n// Start at array index 3 and read as many values\n// as there are fieldNames\nconst startIndex = 3;\n\nfor (let i = 0; i < fieldNames.length; i++) {\n\n    const dataIndex = startIndex + i;\n\n    // Stop if the incoming array doesn't contain enough values\n    if (dataIndex >= data.length) {\n        break;\n    }\n\n    let raw = Number(data[dataIndex]);\n\n    if (!Number.isFinite(raw)) {\n        continue;\n    }\n\n    // Convert unsigned 16-bit → signed 16-bit\n    if (raw > 32767) {\n        raw -= 65536;\n    }\n\n    fields[fieldNames[i]] = raw * scale[i];\n}\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1220,
+        "y": 420,
+        "wires": [
+            [
+                "3783f7ee9d5d5409"
+            ]
+        ]
+    },
+    {
+        "id": "3c16b7665c175e4f",
+        "type": "function",
+        "z": "e5f698a49ea450d9",
+        "g": "d66d41ba9f03dc59",
+        "name": "Current",
+        "func": "// ---- Configuration ----\nconst measurementName = \"HFE\";\nconst tag1Name = \"MAQ20\";\nconst tag2Name = \"current\";\nconst fieldName = \"I\";\n\n// ---- Get Modbus Data ----\n// msg.payload contains 16 values\nconst modbusData = msg.payload;\n\n// ---- Select item 4 ----\nconst rawValue = Number(modbusData[3]);\n\n// ---- Convert raw value to current ----\nconst multiplier = 5.25 * 10 ** -6;\nconst mA = rawValue * multiplier;\n\n// ---- Current scaling configuration ----\nconst Imax = 50;     // amps\nconst Imin = 0;      // amps\n\nconst Amin = 0.004;  // 4 mA\nconst Amax = 0.020;  // 20 mA\n\n// ---- Convert 4–20 mA → 0–50 amps ----\nconst current =\n    (mA - Amin) *\n    ((Imax - Imin) / (Amax - Amin)) +\n    Imin;\n\n// ---- Build fields object ----\nconst fields = {};\n\nif (Number.isFinite(current)) {\n    fields[fieldName] = current;\n}\n\n// ---- Build final payload ----\nmsg.payload = [{\n    measurement: measurementName,\n    tags: {\n        Device: tag1Name,\n        Quantity: tag2Name\n    },\n    fields: fields\n}];\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 200,
+        "wires": [
+            [
+                "3783f7ee9d5d5409"
+            ]
+        ]
+    },
+    {
+        "id": "3783f7ee9d5d5409",
+        "type": "influxdb batch",
+        "z": "e5f698a49ea450d9",
+        "influxdb": "influx_config",
+        "precision": "",
+        "retentionPolicy": "",
+        "name": "InfluxDB Batch",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "B403Lab",
+        "bucket": "Mistral2_HFE_20261001",
+        "x": 1540,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "dd94f4359bc3bd96",
+        "type": "mqtt-broker",
+        "name": "Arduino",
+        "broker": "192.168.1.1",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "c79be4beafecc06e",
+        "type": "modbus-client",
+        "name": "HFE_System",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.1.55",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "influx_config",
+        "type": "influxdb",
+        "hostname": "localhost",
+        "port": "8086",
+        "protocol": "http",
+        "database": "",
+        "name": "Influx out",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://localhost:8086",
+        "timeout": "",
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "5da0e274c4077c68",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.45.2",
+            "node-red-contrib-influxdb": "0.7.0"
+        }
+    }
+]

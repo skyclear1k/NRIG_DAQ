@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local CSV Plotter</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #dbe3ee;
+      --accent: #2563eb;
+      --accent-soft: #eff6ff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .sub {
+      margin: 0 0 20px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .controls h2,
+    .plot h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .section {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input[type="file"],
+    input[type="text"],
+    select,
+    button {
+      width: 100%;
+      font: inherit;
+    }
+
+    input[type="file"],
+    input[type="text"],
+    select {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #fff;
+    }
+
+    select {
+      min-height: 260px;
+    }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .secondary {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid #bfdbfe;
+    }
+
+    .status {
+      font-size: 14px;
+      color: var(--muted);
+      background: #f9fafb;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      line-height: 1.5;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .meta-box {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #fcfdff;
+    }
+
+    .meta-title {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .meta-value {
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .chart-wrap {
+      height: 560px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: white;
+    }
+
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .hint {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meta {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Local CSV Plotter</h1>
+      <p class="sub">
+        This version is designed for Google Sites or any browser page where you want to choose a CSV from your own computer.
+        Nothing is fetched automatically. You pick the file, then plot the columns you want.
+      </p>
+
+      <div class="grid">
+        <div class="controls">
+          <div class="section">
+            <label for="csvFile">Choose CSV file</label>
+            <input type="file" id="csvFile" accept=".csv,text/csv" />
+            <div class="hint">The browser will only read the file after you select it.</div>
+          </div>
+
+          <div class="section">
+            <label for="searchBox">Filter variables</label>
+            <input type="text" id="searchBox" placeholder="Type to filter column names" />
+          </div>
+
+          <div class="section">
+            <label for="variableSelect">Numeric variables</label>
+            <select id="variableSelect" multiple></select>
+            <div class="hint">Use Ctrl+Click or Shift+Click to select multiple variables.</div>
+          </div>
+
+          <div class="section btn-row">
+            <button class="primary" id="plotBtn">Plot selected</button>
+            <button class="secondary" id="clearBtn">Clear chart</button>
+          </div>
+
+          <div class="section btn-row">
+            <button class="secondary" id="selectFirstBtn">Select first 3</button>
+            <button class="secondary" id="selectNoneBtn">Select none</button>
+          </div>
+
+          <div class="section">
+            <div class="status" id="status">No CSV loaded yet.</div>
+          </div>
+        </div>
+
+        <div class="plot">
+          <h2>Plot</h2>
+          <div class="meta">
+            <div class="meta-box">
+              <div class="meta-title">File</div>
+              <div class="meta-value" id="fileName">—</div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-title">Rows</div>
+              <div class="meta-value" id="rowCount">—</div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-title">X axis</div>
+              <div class="meta-value" id="timeName">—</div>
+            </div>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="chart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let chart = null;
+    let csvData = [];
+    let headers = [];
+    let numericColumns = [];
+    let timeColumn = null;
+    let currentFileName = "";
+
+    const csvFile = document.getElementById("csvFile");
+    const variableSelect = document.getElementById("variableSelect");
+    const searchBox = document.getElementById("searchBox");
+    const statusBox = document.getElementById("status");
+
+    csvFile.addEventListener("change", handleFileSelect);
+    document.getElementById("plotBtn").addEventListener("click", plotSelected);
+    document.getElementById("clearBtn").addEventListener("click", clearChart);
+    document.getElementById("selectFirstBtn").addEventListener("click", selectFirstThree);
+    document.getElementById("selectNoneBtn").addEventListener("click", () => setSelectedColumns([]));
+    searchBox.addEventListener("input", populateVariableSelector);
+
+    function setStatus(message) {
+      statusBox.textContent = message;
+    }
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      currentFileName = file.name;
+      setStatus(`Loading ${file.name}...`);
+
+      Papa.parse(file, {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+          csvData = results.data || [];
+          headers = results.meta.fields || [];
+
+          if (!headers.length) {
+            setStatus("No columns found in CSV.");
+            return;
+          }
+
+          timeColumn = detectTimeColumn(headers, csvData);
+          numericColumns = detectNumericColumns(headers, csvData, timeColumn);
+
+          document.getElementById("fileName").textContent = currentFileName;
+          document.getElementById("rowCount").textContent = String(csvData.length);
+          document.getElementById("timeName").textContent = timeColumn || "Row index";
+
+          populateVariableSelector();
+
+          if (numericColumns.length === 0) {
+            setStatus("CSV loaded, but no numeric columns were found.");
+            clearChart();
+            return;
+          }
+
+          const defaultSelection = numericColumns.slice(0, Math.min(3, numericColumns.length));
+          setSelectedColumns(defaultSelection);
+          plotSelected();
+          setStatus(`Loaded ${currentFileName}. Found ${numericColumns.length} numeric columns.`);
+        },
+        error: function(err) {
+          console.error(err);
+          setStatus("Failed to read CSV file.");
+        }
+      });
+    }
+
+    function detectTimeColumn(allHeaders, rows) {
+      const preferred = allHeaders.find(h => /time|timestamp|date/i.test(h || ""));
+      if (preferred) return preferred;
+      return allHeaders[0] || null;
+    }
+
+    function detectNumericColumns(allHeaders, rows, excludedColumn) {
+      return allHeaders.filter(h => {
+        if (!h || h === excludedColumn) return false;
+        return rows.some(row => typeof row[h] === "number" && Number.isFinite(row[h]));
+      }).sort((a, b) => a.localeCompare(b));
+    }
+
+    function populateVariableSelector() {
+      const filterText = searchBox.value.trim().toLowerCase();
+      const previouslySelected = getSelectedColumns();
+
+      variableSelect.innerHTML = "";
+
+      const visibleColumns = numericColumns.filter(col => col.toLowerCase().includes(filterText));
+
+      visibleColumns.forEach(col => {
+        const option = document.createElement("option");
+        option.value = col;
+        option.textContent = col;
+        option.selected = previouslySelected.includes(col);
+        variableSelect.appendChild(option);
+      });
+    }
+
+    function getSelectedColumns() {
+      return Array.from(variableSelect.selectedOptions).map(o => o.value);
+    }
+
+    function setSelectedColumns(columns) {
+      Array.from(variableSelect.options).forEach(option => {
+        option.selected = columns.includes(option.value);
+      });
+    }
+
+    function selectFirstThree() {
+      const options = Array.from(variableSelect.options).slice(0, 3).map(o => o.value);
+      setSelectedColumns(options);
+    }
+
+    function getXAxisValues() {
+      if (!csvData.length) return [];
+      if (!timeColumn) return csvData.map((_, i) => i + 1);
+      return csvData.map((row, i) => {
+        const value = row[timeColumn];
+        return value === undefined || value === null || value === "" ? i + 1 : value;
+      });
+    }
+
+    function plotSelected() {
+      if (!csvData.length) {
+        setStatus("Load a CSV file first.");
+        return;
+      }
+
+      const selected = getSelectedColumns();
+      if (!selected.length) {
+        setStatus("Select at least one variable to plot.");
+        return;
+      }
+
+      const xValues = getXAxisValues();
+
+      const datasets = selected.map((col, index) => ({
+        label: col,
+        data: csvData.map(row => row[col]),
+        borderWidth: 1.5,
+        pointRadius: 0,
+        tension: 0.1,
+        fill: false
+      }));
+
+      drawChart(xValues, datasets);
+      setStatus(`Plotting ${selected.length} variable(s): ${selected.join(", ")}`);
+    }
+
+    function clearChart() {
+      if (chart) {
+        chart.destroy();
+        chart = null;
+      }
+      setStatus(csvData.length ? "Chart cleared." : "No CSV loaded yet.");
+    }
+
+    function drawChart(labels, datasets) {
+      const ctx = document.getElementById("chart").getContext("2d");
+
+      if (chart) chart.destroy();
+
+      chart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: "index",
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              display: true,
+              position: "top"
+            },
+            tooltip: {
+              enabled: true
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: timeColumn || "Index"
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: "Value"
+              }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

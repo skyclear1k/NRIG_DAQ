@@ -1,0 +1,252 @@
+[
+    {
+        "id": "d12212b3f661e7bc",
+        "type": "tab",
+        "label": "Mistral Controls",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "da9da1054c41f72a",
+        "type": "inject",
+        "z": "d12212b3f661e7bc",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 220,
+        "wires": [
+            [
+                "0a89478683901245"
+            ]
+        ]
+    },
+    {
+        "id": "0a89478683901245",
+        "type": "modbus-getter",
+        "z": "d12212b3f661e7bc",
+        "name": "TTC - id#5",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "11000",
+        "quantity": "6",
+        "server": "d09db33beaadfdc2",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "87d63778478009f3"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3f8fce2dae9b511b",
+        "type": "function",
+        "z": "d12212b3f661e7bc",
+        "name": "Control Logic (Hysteresis)",
+        "func": "let T = msg.temperature;\n\nlet T_open = 10;\n\nlet state = flow.get(\"valve_state\") || \"INIT\";\n\nstate = \"CLOSED\";\nif (T > T_open) {\n    state = \"OPEN\";\n}\n\nflow.set(\"valve_state\", state);\n\nmsg.state = state;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 220,
+        "wires": [
+            [
+                "f77083ad9ba3655a"
+            ]
+        ]
+    },
+    {
+        "id": "6225b81748146098",
+        "type": "modbus-flex-write",
+        "z": "d12212b3f661e7bc",
+        "name": "Write DIOL - #6",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "server": "d09db33beaadfdc2",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "x": 460,
+        "y": 340,
+        "wires": [
+            [
+                "5b428b72eaa14c06"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "87d63778478009f3",
+        "type": "function",
+        "z": "d12212b3f661e7bc",
+        "name": "function test",
+        "func": "let data = msg.payload.data || msg.payload;\n\nlet raw = Number(data[4]);   // T_pump_in is index 0\n\nif (Number.isFinite(raw)) {\n    if (raw > 32767) {\n        raw = raw - 65536;   // signed conversion\n    }\n    msg.temperature = raw * 0.0977;\n} else {\n    msg.temperature = null;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 220,
+        "wires": [
+            [
+                "3f8fce2dae9b511b"
+            ]
+        ]
+    },
+    {
+        "id": "f77083ad9ba3655a",
+        "type": "function",
+        "z": "d12212b3f661e7bc",
+        "name": "msg to DIOL",
+        "func": "let state = msg.state;\n\n// DIOL logic:\n// 0 = switch closed → current flows → valve OPEN\n// 1 = switch open   → no current    → valve CLOSED\n\nlet value = (state === \"OPEN\") ? 0 : 1;\n\n// Apply same command to 5 DO channels\nmsg.payload = {\n    fc: 16,\n    unitid: 1,\n    address: 13000,\n    quantity: 5,\n    value: [1,1,1,1,1]\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 340,
+        "wires": [
+            [
+                "6225b81748146098"
+            ]
+        ]
+    },
+    {
+        "id": "5b428b72eaa14c06",
+        "type": "function",
+        "z": "d12212b3f661e7bc",
+        "name": "Read DO0-DO2",
+        "func": "msg.payload = {\n    fc: 3,\n    unitid: 1,\n    address: 13000,\n    quantity: 5\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 480,
+        "wires": [
+            [
+                "9f50f7fbdae3144a"
+            ]
+        ]
+    },
+    {
+        "id": "9f50f7fbdae3144a",
+        "type": "modbus-getter",
+        "z": "d12212b3f661e7bc",
+        "name": "Read DIOL",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "showWarnings": true,
+        "logIOActivities": false,
+        "unitid": "1",
+        "dataType": "HoldingRegister",
+        "adr": "13000",
+        "quantity": "5",
+        "server": "d09db33beaadfdc2",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "delayOnStart": false,
+        "enableDeformedMessages": false,
+        "startDelayTime": "",
+        "x": 450,
+        "y": 480,
+        "wires": [
+            [
+                "7faa04ca285f43ed"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "7faa04ca285f43ed",
+        "type": "debug",
+        "z": "d12212b3f661e7bc",
+        "name": "Read Result",
+        "active": false,
+        "complete": "payload",
+        "x": 630,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d09db33beaadfdc2",
+        "type": "modbus-client",
+        "name": "Mistral",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "failureLogEnabled": true,
+        "tcpHost": "192.168.1.40",
+        "tcpPort": 502,
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": 9600,
+        "serialDatabits": 8,
+        "serialStopbits": 1,
+        "serialParity": "none",
+        "serialConnectionDelay": 100,
+        "serialAsciiResponseStartDelimiter": "0x3A",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": true,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": true,
+        "showErrors": false,
+        "showWarnings": true,
+        "showLogs": true
+    },
+    {
+        "id": "0751b1815ef684db",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-modbus": "5.45.2"
+        }
+    }
+]

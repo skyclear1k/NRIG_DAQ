@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSV Plotter (Local + Zoom)</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1"></script>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 20px;
+    background: #f5f7fb;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+}
+
+.panel {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+select {
+    width: 100%;
+    height: 250px;
+}
+
+button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+canvas {
+    width: 100%;
+    height: 500px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>CSV Plotter (Local File + Zoom)</h2>
+
+<div class="container">
+
+<!-- LEFT PANEL -->
+<div class="panel">
+
+<label>Load CSV</label>
+<input type="file" id="csvFile" accept=".csv">
+
+<br><br>
+
+<label>Variables</label>
+<input type="text" id="searchBox" placeholder="Filter...">
+
+<select id="variableSelect" multiple></select>
+
+<button onclick="plotSelected()">Plot</button>
+<button onclick="resetZoom()">Reset Zoom</button>
+<button onclick="clearChart()">Clear</button>
+
+<div id="status" style="margin-top:10px;color:gray;"></div>
+
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="panel">
+<canvas id="chart"></canvas>
+</div>
+
+</div>
+
+<script>
+let chart = null;
+let csvData = [];
+let headers = [];
+let numericColumns = [];
+let timeColumn = null;
+
+// Load CSV
+document.getElementById("csvFile").addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    Papa.parse(file, {
+        header: true,
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+
+            csvData = results.data;
+            headers = results.meta.fields || [];
+
+            if (!headers.length) {
+                setStatus("No columns found");
+                return;
+            }
+
+            // Detect time column
+            timeColumn = headers.find(h => /time|date/i.test(h)) || headers[0];
+
+            // Detect numeric columns
+            numericColumns = headers.filter(h =>
+                h !== timeColumn &&
+                csvData.some(r => typeof r[h] === "number")
+            ).sort();
+
+            populateList();
+            setStatus(`Loaded ${file.name} (${numericColumns.length} variables)`);
+
+            autoSelectAndPlot();
+        }
+    });
+});
+
+// Populate list
+function populateList() {
+    const select = document.getElementById("variableSelect");
+    select.innerHTML = "";
+
+    const filter = document.getElementById("searchBox").value.toLowerCase();
+
+    numericColumns
+        .filter(v => v.toLowerCase().includes(filter))
+        .forEach(v => {
+            const o = document.createElement("option");
+            o.value = v;
+            o.text = v;
+            select.appendChild(o);
+        });
+}
+
+// Filter typing
+document.getElementById("searchBox").addEventListener("input", populateList);
+
+// Auto select first 3
+function autoSelectAndPlot() {
+    const select = document.getElementById("variableSelect");
+    for (let i = 0; i < Math.min(3, select.options.length); i++) {
+        select.options[i].selected = true;
+    }
+    plotSelected();
+}
+
+// Plot
+function plotSelected() {
+    if (!csvData.length) return;
+
+    const selected = Array.from(
+        document.getElementById("variableSelect").selectedOptions
+    ).map(o => o.value);
+
+    if (!selected.length) {
+        setStatus("Select variables");
+        return;
+    }
+
+    const x = csvData.map((r, i) => r[timeColumn] ?? i);
+
+    const datasets = selected.map(v => ({
+        label: v,
+        data: csvData.map(r => r[v]),
+        borderWidth: 1.5,
+        pointRadius: 0,
+        fill: false
+    }));
+
+    drawChart(x, datasets);
+}
+
+// Draw chart
+function drawChart(labels, datasets) {
+
+    const ctx = document.getElementById("chart").getContext("2d");
+
+    if (chart) chart.destroy();
+
+    chart = new Chart(ctx, {
+        type: "line",
+        data: { labels, datasets },
+        options: {
+
+            responsive: true,
+            maintainAspectRatio: false,
+
+            interaction: {
+                mode: "index",
+                intersect: false
+            },
+
+            plugins: {
+                legend: { display: true },
+
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: "x"
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        drag: {
+                            enabled: true,
+                            backgroundColor: "rgba(0,0,255,0.2)"
+                        },
+                        mode: "x"
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: timeColumn
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: "Value"
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Reset zoom
+function resetZoom() {
+    if (chart) chart.resetZoom();
+}
+
+// Clear
+function clearChart() {
+    if (chart) chart.destroy();
+}
+
+// Status
+function setStatus(msg) {
+    document.getElementById("status").innerText = msg;
+}
+</script>
+
+</body>
+</html>
